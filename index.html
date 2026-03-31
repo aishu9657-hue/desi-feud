@@ -3,7 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desi Challenge – Indian Edition</title>
+<title>Desi Challenge – Indian Edition | Free Indian Family Quiz Game</title>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SEO META TAGS
+     These help Google understand and rank your page correctly.
+════════════════════════════════════════════════════════════ -->
+<meta name="description" content="Play Desi Challenge – the free Indian family quiz game! Test your knowledge of Indian culture, Bollywood, cricket, food, and festivals. Play with up to 8 players.">
+<meta name="keywords" content="Indian quiz game, family feud India, desi quiz, Bollywood quiz, Indian trivia, desi game, Indian party game, Hindi quiz">
+<meta name="author" content="Desi Challenge">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.desichallenge.com/">
+
+<!-- Open Graph (WhatsApp, Facebook previews) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Desi Challenge – Indian Edition | Free Indian Family Quiz Game">
+<meta property="og:description" content="India's favourite family quiz game! Test your knowledge of desi culture, Bollywood, cricket & more. Free to play, up to 8 players.">
+<meta property="og:url" content="https://www.desichallenge.com/">
+<meta property="og:site_name" content="Desi Challenge">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter/X Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Desi Challenge – Indian Edition">
+<meta name="twitter:description" content="India's favourite free family quiz game. Play with friends and family!">
+
+<!-- ═══════════════════════════════════════════════════════════
+     GOOGLE TAG (GA4) — ASYNC
+     ─────────────────────────────────────────────────────────
+     HOW THIS WORKS:
+     The "async" keyword on the first <script> tag tells the
+     browser: "Download this file in the BACKGROUND — don't
+     stop rendering the page to wait for it."
+
+     Without async (synchronous):
+       Browser hits this line → STOPS everything → downloads
+       Google's script → THEN continues loading the page.
+       Result: your page appears slower to users.
+
+     With async (what we use):
+       Browser sees the tag → starts downloading Google's
+       script in the background → keeps rendering your page
+       at the same time → when the script finishes downloading
+       it runs immediately, no delay to users.
+
+     The second <script> block sets up a "queue" (dataLayer).
+     Any gtag() calls you make before Google's script finishes
+     downloading are stored in this queue and replayed once
+     the script is ready — so no data is ever lost.
+
+     ⚠️  REPLACE G-XXXXXXXXXX WITH YOUR REAL GA4 MEASUREMENT ID
+         Get it from: analytics.google.com → Admin → Data Streams
+════════════════════════════════════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-R8WXW2E2DS', {
+    // Sends a page_view event automatically on load
+    send_page_view: true,
+    // Anonymise IPs for privacy compliance (good practice in India/EU)
+    anonymize_ip: true
+  });
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GOOGLE ADSENSE — ASYNC
+     ─────────────────────────────────────────────────────────
+     This loads AdSense in the background (async) so it never
+     slows down your game. The ads only appear where you place
+     <ins class="adsbygoogle"> elements in the HTML.
+
+     ⚠️  REPLACE ca-pub-XXXXXXXXXXXXXXXX WITH YOUR REAL
+         ADSENSE PUBLISHER ID
+         Get it from: adsense.google.com → Account → Account info
+════════════════════════════════════════════════════════════ -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -777,6 +854,32 @@
   }
   #site-footer a { color: rgba(255,215,0,0.7); text-decoration: none; margin: 0 8px; }
   #site-footer a:hover { color: var(--gold); }
+
+  /* ===== ADSENSE AD UNITS ===== */
+  /* Horizontal banner shown on static pages (About, Privacy, etc.)
+     Never shown during active gameplay — keeps game experience clean */
+  .ad-banner {
+    width: 100%;
+    max-width: 728px;
+    margin: 20px auto 0;
+    text-align: center;
+    min-height: 90px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,215,0,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ad-banner-small {
+    width: 100%;
+    max-width: 360px;
+    margin: 16px auto 0;
+    min-height: 60px;
+    text-align: center;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -908,6 +1011,18 @@
 
     <h2>Disclaimer</h2>
     <p>Desi Challenge is an independent, fan-made project and is not affiliated with, endorsed by, or connected to the official Family Feud television programme or its producers. All questions and answers are original content created for this game.</p>
+  </div>
+
+  <!-- AdSense: Horizontal banner below About content
+       Replace data-ad-slot with your real slot ID from adsense.google.com -->
+  <div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;max-width:728px;height:90px;"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 </div>
 
@@ -1046,6 +1161,17 @@
     <h2>Suggest a Question</h2>
     <p>Think you've got a great question for the game? We love crowd-sourced content! Use the form above with subject "Question Suggestion" and include your question and at least 5 possible answers. If we use it, we'll add a special thanks in a future update!</p>
   </div>
+
+  <!-- AdSense: Square/responsive unit below Contact content -->
+  <div class="ad-banner-small">
+    <ins class="adsbygoogle"
+         style="display:block;"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YYYYYYYYYY"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
 </div>
 
 <!-- SITE FOOTER -->
@@ -1059,7 +1185,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ============================================================
 // GAME DATA — Indian-themed questions, increasing difficulty
 // ============================================================
@@ -1534,6 +1660,8 @@ function startGame() {
   currentRoundIndex = 0;
   currentPlayerIndex = 0;
   gameStarted = true;
+  // GA4: track game start
+  gtag('event', 'game_start', { player_count: players.length });
   showScreen('game-screen');
   loadRound();
 }
@@ -1661,8 +1789,16 @@ function endRound() {
   // Award points
   playerScores[currentPlayerIndex] += roundScore;
 
-  // Show all answers
+  // GA4: track round completion
   const round = ROUNDS[currentRoundIndex];
+  const foundCount = revealedAnswers.filter(r => r).length;
+  gtag('event', 'round_complete', {
+    round_number: currentRoundIndex + 1,
+    difficulty: round.difficulty,
+    answers_found: foundCount,
+    round_score: roundScore,
+    wrong_guesses: wrongGuesses
+  });
   revealedAnswers.forEach((r, i) => {
     if (!r) {
       revealCell(i); // show unrevealed too
@@ -1738,6 +1874,13 @@ function showFinalScreen() {
   document.getElementById('final-winner-name').textContent = sorted[0].name;
   document.getElementById('final-winner-score').textContent = `${sorted[0].score} Points`;
 
+  // GA4: track game completion
+  gtag('event', 'game_complete', {
+    winner_score: sorted[0].score,
+    total_rounds: ROUNDS.length,
+    player_count: players.length
+  });
+
   launchConfetti();
   showScreen('final-screen');
 }
@@ -1801,6 +1944,17 @@ function showPage(id) {
   document.getElementById('site-footer').style.display = 'block';
   updateNavHighlight(id);
   window.scrollTo(0, 0);
+  // GA4: track virtual page view for each static page
+  const pageTitles = {
+    'about-page':   'About',
+    'privacy-page': 'Privacy Policy',
+    'terms-page':   'Terms of Service',
+    'contact-page': 'Contact Us'
+  };
+  gtag('event', 'page_view', {
+    page_title: pageTitles[id] || id,
+    page_location: window.location.href + '#' + id
+  });
 }
 
 function goHome() {
@@ -1850,13 +2004,4 @@ function submitContactForm() {
 
 function restartGame() {
   ROUNDS = buildRoundOrder();
-  currentRoundIndex = 0;
-  currentPlayerIndex = 0;
-  playerScores = new Array(players.length).fill(0);
-  showScreen('game-screen');
-  loadRound();
-}
-
-// ============================================================
-// INIT — Add default 2 players
-// ========
+  curren
