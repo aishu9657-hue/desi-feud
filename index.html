@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desi Feud – 🇮🇳</title>
+<title>Desi Feud – Indian Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -596,9 +596,202 @@
     gap: 8px;
     margin-top: 4px;
   }
+
+  /* ===== SITE NAV ===== */
+  #site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(0,10,40,0.97);
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 52px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  }
+
+  .nav-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(255,215,0,0.4);
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.2s, background 0.2s;
+    text-transform: uppercase;
+  }
+  .nav-link:hover, .nav-link.active-nav {
+    color: var(--gold);
+    background: rgba(255,215,0,0.1);
+  }
+
+  /* Push screens below nav */
+  .screen { padding-top: 62px; }
+
+  /* ===== STATIC PAGES (About, Privacy, Terms, Contact) ===== */
+  .static-page {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 20px 60px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .static-page.active { display: flex; }
+
+  .sp-container {
+    width: 100%;
+    max-width: 760px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 14px;
+    padding: 40px 48px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 560px) {
+    .sp-container { padding: 24px 18px; }
+    .nav-link { font-size: 12px; padding: 5px 7px; }
+  }
+
+  .sp-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 56px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #884400;
+  }
+
+  .sp-updated {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 32px;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .sp-container h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin: 32px 0 10px;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+    padding-bottom: 6px;
+  }
+
+  .sp-container p, .sp-container li {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 10px;
+  }
+
+  .sp-container ul, .sp-container ol {
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+
+  .sp-container a {
+    color: var(--gold);
+    text-decoration: underline;
+  }
+
+  /* Contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
+
+  .cf-field { display: flex; flex-direction: column; gap: 5px; }
+
+  .cf-field label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cf-field input, .cf-field textarea, .cf-field select {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 7px;
+    padding: 11px 14px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .cf-field input:focus, .cf-field textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.13);
+  }
+  .cf-field input::placeholder, .cf-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  .cf-success {
+    display: none;
+    background: rgba(0,170,68,0.15);
+    border: 2px solid var(--green-correct);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #66ff99;
+    text-align: center;
+  }
+
+  /* Site Footer */
+  #site-footer {
+    background: rgba(0,5,20,0.95);
+    border-top: 1px solid rgba(255,215,0,0.15);
+    text-align: center;
+    padding: 20px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  #site-footer a { color: rgba(255,215,0,0.7); text-decoration: none; margin: 0 8px; }
+  #site-footer a:hover { color: var(--gold); }
 </style>
 </head>
 <body>
+
+<!-- SITE NAV -->
+<nav id="site-nav">
+  <div class="nav-brand" onclick="goHome()">🇮🇳 DESI FEUD</div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="goHome()">Play</button>
+    <button class="nav-link" onclick="showPage('about-page')">About</button>
+    <button class="nav-link" onclick="showPage('privacy-page')">Privacy</button>
+    <button class="nav-link" onclick="showPage('terms-page')">Terms</button>
+    <button class="nav-link" onclick="showPage('contact-page')">Contact</button>
+  </div>
+</nav>
 
 <!-- TITLE SCREEN -->
 <div id="title-screen" class="screen active">
@@ -685,6 +878,186 @@
 <div class="feedback-overlay" id="feedback-overlay">
   <div class="feedback-text" id="feedback-text"></div>
 </div>
+
+<!-- ===================== ABOUT PAGE ===================== -->
+<div id="about-page" class="static-page">
+  <div class="sp-container">
+    <div class="sp-title">About Desi Feud</div>
+    <div class="sp-updated">India's favourite family quiz game, now digital.</div>
+
+    <p>Welcome to <strong>Desi Feud – Indian Edition</strong>, a free-to-play party trivia game built for Indian families, friends, and anyone who loves desi culture. Whether it's a family get-together, a Diwali night, a road trip, or a rainy Sunday afternoon — Desi Feud is the game that brings everyone together.</p>
+
+    <h2>What is Desi Feud?</h2>
+    <p>Desi Feud is inspired by the classic Family Feud format, reimagined entirely around Indian culture, food, Bollywood, cricket, festivals, and everyday desi life. Players take turns answering survey-style questions and scoring points by matching the most popular answers. The more popular your answer, the higher the points.</p>
+
+    <h2>How to Play</h2>
+    <ul>
+      <li>Add 1 to 8 players on the home screen.</li>
+      <li>Each player takes a turn answering a question.</li>
+      <li>Type your answer — if it matches a survey answer on the board, points are added to your score.</li>
+      <li>3 wrong answers and the round ends.</li>
+      <li>Rounds increase in difficulty: Easy → Medium → Hard → Expert.</li>
+      <li>The player with the most points at the end wins!</li>
+    </ul>
+
+    <h2>Who Made This?</h2>
+    <p>Desi Feud was created as a passion project to celebrate Indian culture through interactive play. The game is entirely browser-based, works offline, and requires no app download or account creation. It is completely free to play.</p>
+
+    <h2>Questions & Feedback</h2>
+    <p>Have a suggestion for a new question, spotted something incorrect, or just want to say hello? Head over to our <button class="nav-link" onclick="showPage('contact-page')" style="display:inline;padding:0;color:var(--gold);font-size:15px;font-family:'Barlow',sans-serif;text-decoration:underline;background:none;border:none;cursor:pointer;">Contact page</button> and drop us a message.</p>
+
+    <h2>Disclaimer</h2>
+    <p>Desi Feud is an independent, fan-made project and is not affiliated with, endorsed by, or connected to the official Family Feud television programme or its producers. All questions and answers are original content created for this game.</p>
+  </div>
+</div>
+
+<!-- ===================== PRIVACY POLICY PAGE ===================== -->
+<div id="privacy-page" class="static-page">
+  <div class="sp-container">
+    <div class="sp-title">Privacy Policy</div>
+    <div class="sp-updated">Last updated: March 2026</div>
+
+    <p>At <strong>Desi Feud</strong>, we take your privacy seriously. This Privacy Policy explains what information we collect, how we use it, and your rights with respect to your data.</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>Desi Feud is a browser-based game. In its current free-to-play form:</p>
+    <ul>
+      <li><strong>No account registration is required.</strong> We do not collect your name, email address, or any personal information to play the game.</li>
+      <li><strong>Player names</strong> entered during gameplay are stored only in your browser's local memory for the duration of your session and are never transmitted to any server.</li>
+      <li><strong>Game scores</strong> are calculated and displayed locally in your browser. We do not store or transmit your scores.</li>
+    </ul>
+
+    <h2>2. Cookies and Tracking</h2>
+    <p>This site may use cookies and similar tracking technologies for the following purposes:</p>
+    <ul>
+      <li><strong>Analytics:</strong> We may use tools like Google Analytics to understand how visitors use this site (e.g., pages visited, time spent). This data is anonymised and aggregated.</li>
+      <li><strong>Advertising:</strong> If display advertising is enabled on this site (e.g., via Google AdSense), third-party ad networks may use cookies to serve relevant advertisements. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and other sites on the internet.</li>
+      <li>You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</li>
+    </ul>
+
+    <h2>3. Third-Party Services</h2>
+    <p>We may use the following third-party services, each governed by their own privacy policies:</p>
+    <ul>
+      <li><strong>Google AdSense</strong> – for display advertising. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+      <li><strong>Google Analytics</strong> – for anonymised usage analytics. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+      <li><strong>Google Fonts</strong> – fonts are loaded from Google's CDN. Google may log font requests per their standard infrastructure policies.</li>
+    </ul>
+
+    <h2>4. Children's Privacy</h2>
+    <p>Desi Feud is suitable for all ages and is designed to be played as a family game. We do not knowingly collect personal information from children under the age of 13. If you believe a child has provided personal information, please contact us immediately so we can take appropriate action.</p>
+
+    <h2>5. Data Retention</h2>
+    <p>Since we do not collect personal data, there is no user data to retain or delete. Any session data (player names, scores) is cleared automatically when you close the browser tab.</p>
+
+    <h2>6. Your Rights</h2>
+    <p>Under applicable data protection laws (including India's Digital Personal Data Protection Act, 2023 and the EU's GDPR where relevant), you have the right to access, correct, and request deletion of any personal data we may hold. Since we do not store personal data, these rights are inherently fulfilled. For any concerns, please contact us via our <button class="nav-link" onclick="showPage('contact-page')" style="display:inline;padding:0;color:var(--gold);font-size:15px;font-family:'Barlow',sans-serif;text-decoration:underline;background:none;border:none;cursor:pointer;">Contact page</button>.</p>
+
+    <h2>7. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated "Last updated" date. We encourage you to review this page periodically.</p>
+
+    <h2>8. Contact</h2>
+    <p>If you have any questions about this Privacy Policy, please reach out via our <button class="nav-link" onclick="showPage('contact-page')" style="display:inline;padding:0;color:var(--gold);font-size:15px;font-family:'Barlow',sans-serif;text-decoration:underline;background:none;border:none;cursor:pointer;">Contact page</button>.</p>
+  </div>
+</div>
+
+<!-- ===================== TERMS OF SERVICE PAGE ===================== -->
+<div id="terms-page" class="static-page">
+  <div class="sp-container">
+    <div class="sp-title">Terms of Service</div>
+    <div class="sp-updated">Last updated: March 2026</div>
+
+    <p>Please read these Terms of Service carefully before using the Desi Feud website and game. By accessing or using Desi Feud, you agree to be bound by these terms.</p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing and using Desi Feud ("the game", "the site", "we", "us"), you accept and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use this site.</p>
+
+    <h2>2. Use of the Game</h2>
+    <p>Desi Feud is provided for personal, non-commercial entertainment purposes. You agree to use this game only for lawful purposes and in a manner that does not infringe the rights of others or restrict or inhibit their use and enjoyment of the game.</p>
+    <p>You may not:</p>
+    <ul>
+      <li>Copy, reproduce, modify, or distribute the game's code or content without prior written permission.</li>
+      <li>Use the game for any commercial purpose without our express written consent.</li>
+      <li>Attempt to reverse engineer, decompile, or extract the source code for redistribution.</li>
+      <li>Use automated tools, bots, or scripts to interact with the game.</li>
+    </ul>
+
+    <h2>3. Intellectual Property</h2>
+    <p>All original game content — including questions, answers, game logic, design, and branding — is the intellectual property of Desi Feud and its creators. The name "Desi Feud" and its associated branding are proprietary. This game is an independent creation and is not affiliated with, licensed by, or endorsed by the producers of the Family Feud television programme.</p>
+
+    <h2>4. User-Generated Content</h2>
+    <p>Currently, Desi Feud does not allow users to submit or publish content on the site. Player names entered during gameplay are local and temporary. Should user submission features be added in future, separate terms will apply.</p>
+
+    <h2>5. Advertising</h2>
+    <p>Desi Feud may display advertisements from third-party networks including Google AdSense. We are not responsible for the content of third-party advertisements. Clicking on advertisements is done at your own discretion.</p>
+
+    <h2>6. Disclaimers</h2>
+    <p>Desi Feud is provided "as is" without warranties of any kind, express or implied. We do not guarantee that the game will always be available, error-free, or uninterrupted. The answers and point values in the game are for entertainment purposes and reflect general popular opinion — they are not authoritative facts.</p>
+
+    <h2>7. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, Desi Feud and its creators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of or inability to use the game.</p>
+
+    <h2>8. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms of Service at any time. Changes will be effective upon posting to this page. Your continued use of the site following any changes constitutes acceptance of the new terms.</p>
+
+    <h2>9. Governing Law</h2>
+    <p>These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts of India.</p>
+
+    <h2>10. Contact</h2>
+    <p>For any questions regarding these Terms of Service, please use our <button class="nav-link" onclick="showPage('contact-page')" style="display:inline;padding:0;color:var(--gold);font-size:15px;font-family:'Barlow',sans-serif;text-decoration:underline;background:none;border:none;cursor:pointer;">Contact page</button>.</p>
+  </div>
+</div>
+
+<!-- ===================== CONTACT PAGE ===================== -->
+<div id="contact-page" class="static-page">
+  <div class="sp-container">
+    <div class="sp-title">Contact Us</div>
+    <div class="sp-updated">We'd love to hear from you!</div>
+
+    <p>Have a question, a suggestion for a new round, spotted a wrong answer, or want to collaborate? Fill in the form below and we'll get back to you as soon as possible.</p>
+
+    <h2>Send a Message</h2>
+    <div class="contact-form" id="contact-form">
+      <div class="cf-field">
+        <label>Your Name *</label>
+        <input type="text" id="cf-name" placeholder="e.g. Rahul Sharma" maxlength="80">
+      </div>
+      <div class="cf-field">
+        <label>Email Address *</label>
+        <input type="email" id="cf-email" placeholder="e.g. rahul@email.com">
+      </div>
+      <div class="cf-field">
+        <label>Subject</label>
+        <input type="text" id="cf-subject" placeholder="e.g. Question suggestion, Bug report, General" maxlength="120">
+      </div>
+      <div class="cf-field">
+        <label>Message *</label>
+        <textarea id="cf-message" rows="5" placeholder="Tell us what's on your mind..."></textarea>
+      </div>
+      <button class="btn btn-gold" onclick="submitContactForm()" style="align-self:flex-start;">Send Message ✉️</button>
+    </div>
+    <div class="cf-success" id="cf-success">
+      ✅ Thanks for reaching out! We'll get back to you within 2–3 business days.
+    </div>
+
+    <h2>Other Ways to Reach Us</h2>
+    <p>📧 <strong>Email:</strong> hello@desifued.com</p>
+    <p>We aim to respond to all enquiries within 2–3 business days. For bug reports, please describe the issue and the browser/device you're using so we can replicate and fix it quickly.</p>
+
+    <h2>Suggest a Question</h2>
+    <p>Think you've got a great question for the game? We love crowd-sourced content! Use the form above with subject "Question Suggestion" and include your question and at least 5 possible answers. If we use it, we'll add a special thanks in a future update!</p>
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<footer id="site-footer">
+  <div>© 2026 Desi Feud – Indian Edition. All rights reserved.</div>
+  <div style="margin-top:6px;">
+    <a href="#" onclick="showPage('about-page');return false;">About</a>
+    <a href="#" onclick="showPage('privacy-page');return false;">Privacy Policy</a>
+    <a href="#" onclick="showPage('terms-page');return false;">Terms of Service</a>
+    <a href="#" onclick="showPage('contact-page');return false;">Contact Us</a>
+  </div>
+</footer>
 
 <script>
 // ============================================================
@@ -1160,6 +1533,7 @@ function startGame() {
   playerScores = new Array(players.length).fill(0);
   currentRoundIndex = 0;
   currentPlayerIndex = 0;
+  gameStarted = true;
   showScreen('game-screen');
   loadRound();
 }
@@ -1410,6 +1784,68 @@ function launchConfetti() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  // hide static pages when showing a game screen
+  document.querySelectorAll('.static-page').forEach(p => p.classList.remove('active'));
+  document.getElementById('site-footer').style.display = 'none';
+  updateNavHighlight(null);
+  window.scrollTo(0, 0);
+}
+
+function showPage(id) {
+  // Hide all game screens
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  // Hide all static pages
+  document.querySelectorAll('.static-page').forEach(p => p.classList.remove('active'));
+  // Show requested page
+  document.getElementById(id).classList.add('active');
+  document.getElementById('site-footer').style.display = 'block';
+  updateNavHighlight(id);
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.querySelectorAll('.static-page').forEach(p => p.classList.remove('active'));
+  document.getElementById('site-footer').style.display = 'none';
+  // Go to title if game hasn't started, otherwise game screen
+  if (!gameStarted) {
+    showScreen('title-screen');
+  } else {
+    showScreen('game-screen');
+  }
+  updateNavHighlight(null);
+}
+
+function updateNavHighlight(activePageId) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-nav'));
+  const map = {
+    'about-page': 1, 'privacy-page': 2, 'terms-page': 3, 'contact-page': 4
+  };
+  if (activePageId && map[activePageId] !== undefined) {
+    document.querySelectorAll('.nav-link')[map[activePageId]].classList.add('active-nav');
+  } else {
+    document.querySelectorAll('.nav-link')[0].classList.add('active-nav');
+  }
+}
+
+// ============================================================
+// CONTACT FORM
+// ============================================================
+function submitContactForm() {
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const message = document.getElementById('cf-message').value.trim();
+  if (!name || !email || !message) {
+    alert('Please fill in your name, email, and message before sending.');
+    return;
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  // In a deployed site, replace this with a real form submission (e.g. Formspree, EmailJS)
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('cf-success').style.display = 'block';
 }
 
 function restartGame() {
@@ -1427,6 +1863,8 @@ function restartGame() {
 window.onload = () => {
   addPlayer();
   addPlayer();
+  document.getElementById('site-footer').style.display = 'none';
+  updateNavHighlight(null);
 };
 </script>
 </body>
