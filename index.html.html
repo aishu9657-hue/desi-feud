@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desi Feud – 🇮🇳</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #002366;
+    --blue-mid: #003399;
+    --blue-light: #0044cc;
+    --gold: #FFD700;
+    --gold-dark: #cc9900;
+    --red: #cc0000;
+    --red-bright: #ff2200;
+    --white: #ffffff;
+    --off-white: #f5f0e8;
+    --black: #0a0a0a;
+    --green-correct: #00aa44;
+    --wrong-red: #dd0000;
+    --cell-bg: #001a4d;
+    --cell-border: #0055ff;
+    --shadow: 0 4px 32px rgba(0,0,0,0.7);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--blue-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(0,68,204,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(0,68,204,0.3) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,215,0,0.03) 60px, rgba(255,215,0,0.03) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,215,0,0.03) 60px, rgba(255,215,0,0.03) 61px);
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+  .screen.active { display: flex; }
+
+  /* ===== TITLE SCREEN ===== */
+  #title-screen {
+    gap: 30px;
+    background: radial-gradient(ellipse at center, #003399 0%, #001133 70%);
+  }
+
+  .title-logo {
+    text-align: center;
+    animation: titlePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+
+  .title-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 10vw, 100px);
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(255,215,0,0.6), 4px 4px 0 #cc7700, 8px 8px 0 #884400;
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  .title-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 5vw, 52px);
+    color: var(--white);
+    text-shadow: 2px 2px 0 var(--blue-mid);
+    letter-spacing: 6px;
+  }
+
+  .title-flag { font-size: 48px; animation: spin 3s linear infinite; display: inline-block; }
+  @keyframes spin { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg); } 100% { transform: rotateY(360deg); } }
+
+  .player-setup { width: 100%; max-width: 500px; }
+
+  .player-setup h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+  }
+
+  #player-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+
+  .player-input-row {
+    display: flex; gap: 8px; align-items: center;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn { from { opacity:0; transform: translateX(-20px); } to { opacity:1; transform: translateX(0); } }
+
+  .player-input-row span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .player-input-row input {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .player-input-row input:focus {
+    background: rgba(255,255,255,0.18);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .player-input-row input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .remove-btn {
+    background: var(--red);
+    border: none;
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .remove-btn:hover { background: var(--red-bright); transform: scale(1.1); }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    text-transform: uppercase;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-gold {
+    background: linear-gradient(180deg, #ffe566 0%, var(--gold) 50%, #cc9900 100%);
+    color: var(--black);
+    box-shadow: 0 6px 0 #884400, var(--shadow);
+  }
+  .btn-gold:hover { box-shadow: 0 8px 0 #884400, var(--shadow); transform: translateY(-2px); }
+
+  .btn-blue {
+    background: linear-gradient(180deg, #0077ff 0%, var(--blue-light) 50%, #002299 100%);
+    color: var(--white);
+    box-shadow: 0 6px 0 #001166, var(--shadow);
+  }
+  .btn-blue:hover { box-shadow: 0 8px 0 #001166, var(--shadow); transform: translateY(-2px); }
+
+  .btn-red {
+    background: linear-gradient(180deg, #ff4422 0%, var(--red) 50%, #880000 100%);
+    color: var(--white);
+    box-shadow: 0 6px 0 #550000, var(--shadow);
+  }
+  .btn-red:hover { box-shadow: 0 8px 0 #550000, var(--shadow); transform: translateY(-2px); }
+
+  .setup-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ===== GAME SCREEN ===== */
+  #game-screen { justify-content: flex-start; padding: 10px 16px; gap: 10px; }
+
+  .game-header {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .round-badge {
+    background: var(--red);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    box-shadow: 0 3px 0 #550000;
+  }
+
+  .current-player-banner {
+    background: linear-gradient(135deg, var(--gold) 0%, #cc9900 100%);
+    color: var(--black);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    box-shadow: 0 3px 0 #553300;
+    text-align: center;
+    animation: playerPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes playerPulse {
+    0%,100% { box-shadow: 0 3px 0 #553300; }
+    50% { box-shadow: 0 3px 20px rgba(255,215,0,0.8), 0 3px 0 #553300; }
+  }
+
+  .score-badge {
+    background: var(--cell-bg);
+    border: 2px solid var(--gold);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+
+  /* ===== BOARD ===== */
+  .board-container {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .question-box {
+    background: var(--blue-mid);
+    border: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 14px 24px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(18px, 3.5vw, 26px);
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 14px;
+    box-shadow: 0 4px 0 #001166, var(--shadow);
+    letter-spacing: 0.5px;
+  }
+
+  .round-score-display {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255,215,0,0.5), 2px 2px 0 #884400;
+    margin-bottom: 8px;
+    letter-spacing: 4px;
+  }
+
+  .answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .answer-cell {
+    background: var(--cell-bg);
+    border: 3px solid var(--cell-border);
+    border-radius: 8px;
+    padding: 0;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 0 #001166;
+    position: relative;
+  }
+
+  .cell-number {
+    background: var(--blue-light);
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    width: 44px;
+    height: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-right: 2px solid var(--cell-border);
+    letter-spacing: 1px;
+  }
+
+  .cell-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .cell-answer {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(15px, 2.5vw, 20px);
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+    flex: 1;
+  }
+
+  .cell-points {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    opacity: 0;
+    transition: opacity 0.3s;
+    flex-shrink: 0;
+  }
+
+  .answer-cell.revealed .cell-answer,
+  .answer-cell.revealed .cell-points { opacity: 1; }
+
+  .answer-cell.revealed {
+    background: linear-gradient(135deg, #001a4d 0%, #002a6e 100%);
+    border-color: var(--gold);
+    animation: revealFlash 0.5s ease;
+  }
+
+  @keyframes revealFlash {
+    0% { background: #ffff00; border-color: #ffff00; }
+    30% { background: #ffaa00; }
+    100% { background: linear-gradient(135deg, #001a4d 0%, #002a6e 100%); border-color: var(--gold); }
+  }
+
+  /* X Marks */
+  .x-marks { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; height: 50px; }
+  .x-mark {
+    font-size: 60px;
+    color: var(--red-bright);
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-weight: 900;
+    text-shadow: 0 0 20px rgba(255,34,0,0.8);
+    line-height: 1;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .x-mark.show { opacity: 1; animation: xBounce 0.4s ease; }
+  @keyframes xBounce { 0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.3) rotate(5deg)}100%{transform:scale(1) rotate(0)} }
+
+  /* Answer Input */
+  .answer-section {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .answer-input {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(255,255,255,0.12);
+    border: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px 18px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: none;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .answer-input:focus {
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 0 2px rgba(255,215,0,0.5);
+  }
+  .answer-input::placeholder { color: rgba(255,255,255,0.4); }
+
+  /* Feedback */
+  .feedback-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 100;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .feedback-overlay.show { transform: translate(-50%, -50%) scale(1); }
+
+  .feedback-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    text-align: center;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+    letter-spacing: 6px;
+  }
+  .feedback-text.correct { color: #00ff66; }
+  .feedback-text.wrong { color: var(--red-bright); }
+
+  /* ===== LEADERBOARD SCREEN ===== */
+  #leaderboard-screen {
+    background: radial-gradient(ellipse at center, #002277 0%, #000d33 70%);
+    gap: 24px;
+  }
+
+  .lb-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 80px);
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(255,215,0,0.5), 4px 4px 0 #884400;
+    letter-spacing: 4px;
+    text-align: center;
+  }
+
+  .lb-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+  }
+
+  .lb-table th {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    padding: 10px 16px;
+    border-bottom: 3px solid var(--gold);
+    text-align: left;
+  }
+  .lb-table th:last-child { text-align: right; }
+
+  .lb-table td {
+    padding: 12px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+    transition: background 0.2s;
+  }
+  .lb-table td:last-child { text-align: right; font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--gold); }
+
+  .lb-table tr:first-child td { color: var(--gold); font-size: 24px; }
+  .lb-table tr:nth-child(1) td { background: rgba(255,215,0,0.08); }
+  .lb-table tr:nth-child(2) td { background: rgba(192,192,192,0.05); }
+  .lb-table tr:nth-child(3) td { background: rgba(205,127,50,0.05); }
+
+  .rank-icon { font-size: 22px; margin-right: 8px; }
+
+  /* ===== ROUND RESULT SCREEN ===== */
+  #round-result-screen {
+    background: radial-gradient(ellipse at center, #004400 0%, #001a00 70%);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .rr-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    color: var(--gold);
+    letter-spacing: 4px;
+  }
+
+  .rr-winner {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(22px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  .rr-points {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 100px);
+    color: var(--green-correct);
+    text-shadow: 0 0 30px rgba(0,255,100,0.4);
+  }
+
+  .rr-board-reveal {
+    width: 100%;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .rr-answer-row {
+    background: rgba(0,30,80,0.6);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .rr-pts { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--gold); }
+
+  /* ===== FINAL SCREEN ===== */
+  #final-screen {
+    background: radial-gradient(ellipse at center, #550000 0%, #1a0000 70%);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .winner-crown { font-size: 80px; animation: crownBounce 1s ease-in-out infinite; }
+  @keyframes crownBounce { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-10px) rotate(5deg)} }
+
+  .winner-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 80px);
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(255,215,0,0.8), 4px 4px 0 #884400;
+    letter-spacing: 4px;
+  }
+
+  .winner-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    color: var(--white);
+  }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+    z-index: 999;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Difficulty badge */
+  .difficulty-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .diff-easy { background: var(--green-correct); color: white; }
+  .diff-medium { background: #ff8800; color: white; }
+  .diff-hard { background: var(--red); color: white; }
+  .diff-expert { background: #880088; color: white; }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .answers-grid { grid-template-columns: 1fr; }
+    .rr-board-reveal { grid-template-columns: 1fr; }
+    .cell-answer { font-size: 14px; }
+  }
+
+  .skip-btn {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.5);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .skip-btn:hover { border-color: rgba(255,255,255,0.6); color: rgba(255,255,255,0.8); }
+
+  .strikes-info {
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    margin-top: -6px;
+  }
+
+  .game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TITLE SCREEN -->
+<div id="title-screen" class="screen active">
+  <div class="title-logo">
+    <div class="title-main">Family Feud</div>
+    <div class="title-sub">🇮🇳 Desi Edition 🇮🇳</div>
+  </div>
+
+  <div class="player-setup">
+    <h2>Enter Players</h2>
+    <div id="player-list"></div>
+    <div class="setup-btns">
+      <button class="btn btn-blue" onclick="addPlayer()">+ Add Player</button>
+      <button class="btn btn-gold" onclick="startGame()">Start Game ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="game-screen" class="screen">
+  <div class="game-header">
+    <div class="round-badge" id="round-indicator">Round 1 / 8</div>
+    <div class="current-player-banner" id="current-player-name">Player</div>
+    <div class="score-badge">Score: <span id="current-score">0</span></div>
+  </div>
+
+  <div class="board-container">
+    <div class="question-box" id="question-text">Question here</div>
+    <div class="round-score-display" id="round-score-display">0</div>
+    <div class="answers-grid" id="answers-grid"></div>
+
+    <div class="x-marks" id="x-marks">
+      <span class="x-mark" id="x1">✗</span>
+      <span class="x-mark" id="x2">✗</span>
+      <span class="x-mark" id="x3">✗</span>
+    </div>
+
+    <div class="strikes-info">3 wrong answers = round over</div>
+
+    <div class="answer-section">
+      <input type="text" class="answer-input" id="answer-input" placeholder="Type your answer..." autocomplete="off" onkeydown="if(event.key==='Enter') submitAnswer()">
+      <button class="btn btn-gold" onclick="submitAnswer()">Submit</button>
+    </div>
+  </div>
+
+  <div class="game-footer">
+    <button class="skip-btn" onclick="skipRound()">Skip Round →</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(255,255,255,0.4);">
+      Answers left: <span id="answers-left">0</span>
+    </div>
+  </div>
+</div>
+
+<!-- ROUND RESULT SCREEN -->
+<div id="round-result-screen" class="screen">
+  <div class="rr-title">Round Complete!</div>
+  <div id="rr-found-text" class="rr-winner"></div>
+  <div id="rr-points" class="rr-points">+0</div>
+  <div class="rr-board-reveal" id="rr-board"></div>
+  <button class="btn btn-gold" onclick="nextRound()">Next Round ▶</button>
+</div>
+
+<!-- LEADERBOARD SCREEN (between rounds) -->
+<div id="leaderboard-screen" class="screen">
+  <div class="lb-title">🏆 Leaderboard</div>
+  <table class="lb-table" id="lb-table"></table>
+  <button class="btn btn-gold" onclick="continueToGame()">Continue ▶</button>
+</div>
+
+<!-- FINAL SCREEN -->
+<div id="final-screen" class="screen">
+  <div class="winner-crown">👑</div>
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--white);letter-spacing:3px;">WINNER!</div>
+  <div class="winner-name" id="final-winner-name">Player</div>
+  <div class="winner-score" id="final-winner-score">0 Points</div>
+  <div style="margin-top:10px;width:100%;max-width:500px;">
+    <div class="lb-title" style="font-size:32px;margin-bottom:12px;">Final Standings</div>
+    <table class="lb-table" id="final-lb-table"></table>
+  </div>
+  <button class="btn btn-red" onclick="restartGame()" style="margin-top:10px;">Play Again 🔄</button>
+</div>
+
+<!-- Feedback Overlay -->
+<div class="feedback-overlay" id="feedback-overlay">
+  <div class="feedback-text" id="feedback-text"></div>
+</div>
+
+<script>
+// ============================================================
+// GAME DATA — Indian-themed questions, increasing difficulty
+// ============================================================
+const ALL_ROUNDS = [
+  // ============================================================
+  // EASY (8 rounds)
+  // ============================================================
+  {
+    difficulty: 'easy',
+    question: "Name something you find at every Indian wedding",
+    answers: [
+      { text: "Biryani", points: 42 },
+      { text: "DJ / Music", points: 28 },
+      { text: "Relatives", points: 22 },
+      { text: "Mehendi", points: 18 },
+      { text: "Sweets / Mithai", points: 15 },
+      { text: "Baraat", points: 10 },
+      { text: "Pandit / Priest", points: 8 },
+      { text: "Shahnai", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name a popular Indian street food",
+    answers: [
+      { text: "Pani Puri / Golgappa", points: 38 },
+      { text: "Chaat", points: 26 },
+      { text: "Vada Pav", points: 22 },
+      { text: "Samosa", points: 20 },
+      { text: "Bhel Puri", points: 14 },
+      { text: "Dosa", points: 10 },
+      { text: "Kachori", points: 7 },
+      { text: "Aloo Tikki", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name a sport Indians are passionate about",
+    answers: [
+      { text: "Cricket", points: 55 },
+      { text: "Kabaddi", points: 20 },
+      { text: "Hockey", points: 16 },
+      { text: "Football / Soccer", points: 12 },
+      { text: "Badminton", points: 10 },
+      { text: "Wrestling / Kushti", points: 6 },
+      { text: "Chess", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name something Indians do during Diwali",
+    answers: [
+      { text: "Burst crackers / Fireworks", points: 38 },
+      { text: "Light diyas / Lamps", points: 30 },
+      { text: "Give sweets / Mithai", points: 22 },
+      { text: "Puja / Lakshmi pooja", points: 18 },
+      { text: "Rangoli", points: 14 },
+      { text: "New clothes", points: 9 },
+      { text: "Gambling / Teen Patti", points: 7 },
+      { text: "Clean / Decorate house", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name a popular Bollywood song everyone knows",
+    answers: [
+      { text: "Chaiyya Chaiyya", points: 32 },
+      { text: "Dilwale Dulhania Le Jayenge title", points: 28 },
+      { text: "Jai Ho", points: 22 },
+      { text: "Kuch Kuch Hota Hai title", points: 18 },
+      { text: "Tum Hi Ho", points: 14 },
+      { text: "Lungi Dance", points: 10 },
+      { text: "Bole Chudiyan", points: 8 },
+      { text: "Deewangi Deewangi", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name something you always find in an Indian chai (tea)",
+    answers: [
+      { text: "Milk", points: 44 },
+      { text: "Sugar", points: 34 },
+      { text: "Ginger / Adrak", points: 26 },
+      { text: "Cardamom / Elaichi", points: 18 },
+      { text: "Tea leaves / Patti", points: 12 },
+      { text: "Tulsi", points: 7 },
+      { text: "Cloves / Laung", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name a famous Indian cricketer",
+    answers: [
+      { text: "Virat Kohli", points: 40 },
+      { text: "Sachin Tendulkar", points: 35 },
+      { text: "MS Dhoni", points: 28 },
+      { text: "Rohit Sharma", points: 18 },
+      { text: "Sourav Ganguly", points: 10 },
+      { text: "Kapil Dev", points: 8 },
+      { text: "Sunil Gavaskar", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'easy',
+    question: "Name something Indians eat for breakfast",
+    answers: [
+      { text: "Paratha", points: 38 },
+      { text: "Idli / Dosa", points: 30 },
+      { text: "Poha", points: 22 },
+      { text: "Upma", points: 16 },
+      { text: "Bread / Toast", points: 12 },
+      { text: "Puri Bhaji", points: 10 },
+      { text: "Thepla", points: 6 },
+      { text: "Sabudana Khichdi", points: 4 }
+    ]
+  },
+
+  // ============================================================
+  // MEDIUM (10 rounds)
+  // ============================================================
+  {
+    difficulty: 'medium',
+    question: "Name something every Indian household has in the kitchen",
+    answers: [
+      { text: "Pressure Cooker", points: 40 },
+      { text: "Masala Dabba / Spice Box", points: 30 },
+      { text: "Tadka Pan", points: 20 },
+      { text: "Atta / Flour", points: 15 },
+      { text: "Haldi / Turmeric", points: 12 },
+      { text: "Pickle / Achaar", points: 10 },
+      { text: "Rolling Pin / Belan", points: 8 },
+      { text: "Chakla", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name a famous Bollywood actor from the 90s",
+    answers: [
+      { text: "Shah Rukh Khan", points: 38 },
+      { text: "Salman Khan", points: 30 },
+      { text: "Aamir Khan", points: 22 },
+      { text: "Akshay Kumar", points: 18 },
+      { text: "Ajay Devgn", points: 12 },
+      { text: "Sanjay Dutt", points: 10 },
+      { text: "Sunny Deol", points: 8 },
+      { text: "Jackie Shroff", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name a popular Indian festival celebrated nationwide",
+    answers: [
+      { text: "Diwali", points: 40 },
+      { text: "Holi", points: 32 },
+      { text: "Eid", points: 20 },
+      { text: "Navratri", points: 16 },
+      { text: "Durga Puja", points: 12 },
+      { text: "Onam", points: 9 },
+      { text: "Pongal", points: 7 },
+      { text: "Baisakhi", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name something every Indian parent wants their child to become",
+    answers: [
+      { text: "Doctor", points: 44 },
+      { text: "Engineer / IITian", points: 36 },
+      { text: "IAS / IPS Officer", points: 20 },
+      { text: "CA / Chartered Accountant", points: 14 },
+      { text: "Lawyer", points: 10 },
+      { text: "Pilot", points: 6 },
+      { text: "Banker", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name a famous Indian dish from South India",
+    answers: [
+      { text: "Masala Dosa", points: 40 },
+      { text: "Idli Sambar", points: 32 },
+      { text: "Hyderabadi Biryani", points: 22 },
+      { text: "Rasam", points: 14 },
+      { text: "Chettinad Curry", points: 10 },
+      { text: "Appam", points: 8 },
+      { text: "Pesarattu", points: 5 },
+      { text: "Bisi Bele Bath", points: 3 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name something Indians do during a power cut",
+    answers: [
+      { text: "Use a torch / Phone light", points: 36 },
+      { text: "Use candles / Diyas", points: 28 },
+      { text: "Complain / Shout BIJLI GAYI!", points: 22 },
+      { text: "Sleep / Rest", points: 18 },
+      { text: "Switch on inverter / Generator", points: 14 },
+      { text: "Sit outside / Chat with neighbours", points: 10 },
+      { text: "Fan with paper / Newspaper", points: 7 },
+      { text: "Call the electricity office", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name an Indian city famous for its food",
+    answers: [
+      { text: "Mumbai", points: 34 },
+      { text: "Delhi", points: 28 },
+      { text: "Hyderabad", points: 22 },
+      { text: "Kolkata", points: 18 },
+      { text: "Amritsar", points: 14 },
+      { text: "Chennai", points: 10 },
+      { text: "Lucknow", points: 8 },
+      { text: "Indore", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name something people argue about at an Indian family dinner",
+    answers: [
+      { text: "Politics / Government", points: 34 },
+      { text: "Marriage / Rishta", points: 28 },
+      { text: "Who is getting more food", points: 20 },
+      { text: "Children's career / Studies", points: 18 },
+      { text: "Property / Money", points: 14 },
+      { text: "Cricket match", points: 10 },
+      { text: "Religion / Caste", points: 7 },
+      { text: "TV remote", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name a popular Indian snack eaten while watching cricket",
+    answers: [
+      { text: "Samosa", points: 36 },
+      { text: "Chakli / Chakali", points: 24 },
+      { text: "Namkeen / Mixtures", points: 20 },
+      { text: "Chips / Wafers", points: 16 },
+      { text: "Bhujia", points: 12 },
+      { text: "Mathri", points: 8 },
+      { text: "Murmura / Puffed rice", points: 6 }
+    ]
+  },
+  {
+    difficulty: 'medium',
+    question: "Name something an Indian uncle does at a family gathering",
+    answers: [
+      { text: "Ask about marks / studies", points: 38 },
+      { text: "Talk about their own achievements", points: 26 },
+      { text: "Eat the most", points: 20 },
+      { text: "Give unsolicited career advice", points: 16 },
+      { text: "Discuss politics loudly", points: 12 },
+      { text: "Take selfies / Photos", points: 8 },
+      { text: "Ask when you're getting married", points: 6 }
+    ]
+  },
+
+  // ============================================================
+  // HARD (6 rounds)
+  // ============================================================
+  {
+    difficulty: 'hard',
+    question: "Name something an Indian parent says when you get 95% in exams",
+    answers: [
+      { text: "Where did the other 5 marks go?", points: 38 },
+      { text: "Sharma ji ka beta scored higher", points: 28 },
+      { text: "Is this your best?", points: 20 },
+      { text: "You need to study more", points: 16 },
+      { text: "Doctor / Engineer bano", points: 12 },
+      { text: "Don't be overconfident", points: 8 },
+      { text: "Focus on boards", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'hard',
+    question: "Name a popular Indian OTT show or film from recent years",
+    answers: [
+      { text: "Scam 1992", points: 34 },
+      { text: "Mirzapur", points: 28 },
+      { text: "Sacred Games", points: 22 },
+      { text: "Panchayat", points: 18 },
+      { text: "The Family Man", points: 14 },
+      { text: "Aspirants", points: 10 },
+      { text: "Kota Factory", points: 8 },
+      { text: "Delhi Crime", points: 5 }
+    ]
+  },
+  {
+    difficulty: 'hard',
+    question: "Name something Indians do to avoid bad luck",
+    answers: [
+      { text: "Nimbu Mirchi / Lemon chilli hanging", points: 34 },
+      { text: "Visit temple / Pray", points: 28 },
+      { text: "Wear black dot / Kala tika", points: 22 },
+      { text: "Break coconut", points: 16 },
+      { text: "Fast / Vrat", points: 12 },
+      { text: "Consult astrologer / Pandit", points: 8 },
+      { text: "Wear gemstone ring", points: 6 },
+      { text: "Salt water cleansing", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'hard',
+    question: "Name something you find on a typical Indian thali",
+    answers: [
+      { text: "Dal", points: 36 },
+      { text: "Roti / Chapati", points: 30 },
+      { text: "Rice", points: 24 },
+      { text: "Sabzi / Vegetable curry", points: 18 },
+      { text: "Papad", points: 12 },
+      { text: "Pickle / Achaar", points: 8 },
+      { text: "Curd / Raita", points: 6 },
+      { text: "Sweet / Kheer", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'hard',
+    question: "Name a reason Indians travel by train",
+    answers: [
+      { text: "Cheaper / Affordable", points: 38 },
+      { text: "Long distance travel", points: 28 },
+      { text: "Family visit / Holidays", points: 22 },
+      { text: "No airport nearby", points: 16 },
+      { text: "Scenic / Comfort", points: 10 },
+      { text: "Unreserved / Last minute", points: 8 },
+      { text: "Tradition / Habit", points: 6 }
+    ]
+  },
+  {
+    difficulty: 'hard',
+    question: "Name something a new daughter-in-law is expected to do in a traditional Indian household",
+    answers: [
+      { text: "Cook / Make rotis", points: 40 },
+      { text: "Wake up early", points: 28 },
+      { text: "Touch elders' feet / Respect", points: 22 },
+      { text: "Wear saree / Cover head", points: 16 },
+      { text: "Fast / Keep vrats", points: 12 },
+      { text: "Avoid going out alone", points: 7 },
+      { text: "Learn family's recipes", points: 5 }
+    ]
+  },
+
+  // ============================================================
+  // EXPERT (4 rounds)
+  // ============================================================
+  {
+    difficulty: 'expert',
+    question: "Name a reason an Indian family visits the temple",
+    answers: [
+      { text: "Prayer / Pooja", points: 36 },
+      { text: "Festival / Occasion", points: 28 },
+      { text: "Good luck for exam or job", points: 22 },
+      { text: "Marriage proposal / Rishta", points: 16 },
+      { text: "Prasad", points: 12 },
+      { text: "New car / House blessing", points: 8 },
+      { text: "Debt / Mannat fulfilled", points: 6 }
+    ]
+  },
+  {
+    difficulty: 'expert',
+    question: "Name something that reveals someone is truly Indian, no matter where they live",
+    answers: [
+      { text: "Masala dabba in the kitchen", points: 36 },
+      { text: "Removing shoes at the door", points: 28 },
+      { text: "Saving plastic bags religiously", points: 22 },
+      { text: "Calling elders Aunty / Uncle", points: 18 },
+      { text: "Eating with hands", points: 14 },
+      { text: "WhatsApp forwards from parents", points: 10 },
+      { text: "Curd rice as comfort food", points: 7 },
+      { text: "Head wobble / Nod", points: 4 }
+    ]
+  },
+  {
+    difficulty: 'expert',
+    question: "Name something a typical Indian jugaad (improvised) fix involves",
+    answers: [
+      { text: "Tape / Cellotape", points: 36 },
+      { text: "Wire / Rope", points: 28 },
+      { text: "A brick or stone as a stopper", points: 20 },
+      { text: "Rubber band", points: 16 },
+      { text: "Old saree / Cloth", points: 12 },
+      { text: "Safety pin", points: 10 },
+      { text: "Fevicol / Glue", points: 6 },
+      { text: "Coconut shell / Earthen pot", points: 3 }
+    ]
+  },
+  {
+    difficulty: 'expert',
+    question: "Name something a desi NRI misses most about India",
+    answers: [
+      { text: "Maa ka khana / Mom's cooking", points: 40 },
+      { text: "Street food / Chaat", points: 30 },
+      { text: "Family and friends", points: 22 },
+      { text: "Festivals / Celebrations", points: 16 },
+      { text: "Cheap prices / Value for money", points: 10 },
+      { text: "Cricket / IPL atmosphere", points: 8 },
+      { text: "Rickshaw / Local commute", points: 5 },
+      { text: "Bollywood / Hindi films", points: 3 }
+    ]
+  }
+];
+
+// Shuffle rounds within each difficulty tier, then sort by tier order
+function buildRoundOrder() {
+  const tiers = ['easy','medium','hard','expert'];
+  let result = [];
+  tiers.forEach(tier => {
+    let tierRounds = ALL_ROUNDS.filter(r => r.difficulty === tier);
+    // Fisher-Yates shuffle within tier
+    for (let i = tierRounds.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tierRounds[i], tierRounds[j]] = [tierRounds[j], tierRounds[i]];
+    }
+    result = result.concat(tierRounds);
+  });
+  return result;
+}
+
+let ROUNDS = buildRoundOrder();
+
+// ============================================================
+// GAME STATE
+// ============================================================
+let players = [];
+let playerScores = [];
+let currentRoundIndex = 0;
+let currentPlayerIndex = 0;
+let wrongGuesses = 0;
+let roundScore = 0;
+let revealedAnswers = [];
+let gameStarted = false;
+
+const WRONG_LIMIT = 3;
+
+// ============================================================
+// PLAYER SETUP
+// ============================================================
+function addPlayer() {
+  const list = document.getElementById('player-list');
+  const idx = list.children.length + 1;
+  if (idx > 8) { alert('Maximum 8 players!'); return; }
+  const row = document.createElement('div');
+  row.className = 'player-input-row';
+  row.innerHTML = `
+    <span>${idx}.</span>
+    <input type="text" placeholder="Player ${idx} name" maxlength="20">
+    <button class="remove-btn" onclick="removePlayer(this)">✕</button>
+  `;
+  list.appendChild(row);
+}
+
+function removePlayer(btn) {
+  btn.parentElement.remove();
+  renumberPlayers();
+}
+
+function renumberPlayers() {
+  const rows = document.querySelectorAll('.player-input-row');
+  rows.forEach((r, i) => { r.querySelector('span').textContent = (i+1) + '.'; });
+}
+
+function startGame() {
+  const inputs = document.querySelectorAll('.player-input-row input');
+  players = [];
+  inputs.forEach(inp => {
+    const name = inp.value.trim();
+    if (name) players.push(name);
+  });
+  if (players.length < 1) { alert('Add at least 1 player!'); return; }
+  playerScores = new Array(players.length).fill(0);
+  currentRoundIndex = 0;
+  currentPlayerIndex = 0;
+  showScreen('game-screen');
+  loadRound();
+}
+
+// ============================================================
+// ROUND LOGIC
+// ============================================================
+function loadRound() {
+  const round = ROUNDS[currentRoundIndex];
+  wrongGuesses = 0;
+  roundScore = 0;
+  revealedAnswers = new Array(round.answers.length).fill(false);
+
+  // Header
+  document.getElementById('round-indicator').innerHTML =
+    `Round ${currentRoundIndex+1} / ${ROUNDS.length}
+    <span class="difficulty-badge diff-${round.difficulty}">${round.difficulty.toUpperCase()}</span>`;
+  document.getElementById('current-player-name').textContent = players[currentPlayerIndex];
+  document.getElementById('current-score').textContent = playerScores[currentPlayerIndex];
+  document.getElementById('round-score-display').textContent = '0';
+  document.getElementById('answers-left').textContent = round.answers.length;
+
+  // Question
+  document.getElementById('question-text').textContent = round.question;
+
+  // Build grid
+  const grid = document.getElementById('answers-grid');
+  grid.innerHTML = '';
+  round.answers.forEach((ans, i) => {
+    grid.innerHTML += `
+      <div class="answer-cell" id="cell-${i}">
+        <div class="cell-number">${i+1}</div>
+        <div class="cell-content">
+          <span class="cell-answer" id="ans-${i}">${ans.text}</span>
+          <span class="cell-points" id="pts-${i}">${ans.points}</span>
+        </div>
+      </div>`;
+  });
+
+  // Reset X marks
+  for (let j=1;j<=3;j++) {
+    const el = document.getElementById('x'+j);
+    el.classList.remove('show');
+  }
+
+  document.getElementById('answer-input').value = '';
+  document.getElementById('answer-input').focus();
+}
+
+function submitAnswer() {
+  const input = document.getElementById('answer-input');
+  const guess = input.value.trim();
+  if (!guess) return;
+  input.value = '';
+  input.focus();
+
+  const round = ROUNDS[currentRoundIndex];
+  let matched = false;
+
+  for (let i = 0; i < round.answers.length; i++) {
+    if (revealedAnswers[i]) continue;
+    const answerNorm = normalise(round.answers[i].text);
+    const guessNorm = normalise(guess);
+    if (fuzzyMatch(guessNorm, answerNorm)) {
+      // Correct!
+      revealedAnswers[i] = true;
+      roundScore += round.answers[i].points;
+      revealCell(i);
+      showFeedback(true, `+${round.answers[i].points}`);
+      document.getElementById('round-score-display').textContent = roundScore;
+      updateAnswersLeft();
+      matched = true;
+      break;
+    }
+  }
+
+  if (!matched) {
+    wrongGuesses++;
+    document.getElementById('x'+wrongGuesses).classList.add('show');
+    showFeedback(false, 'WRONG!');
+    if (wrongGuesses >= WRONG_LIMIT) {
+      setTimeout(endRound, 800);
+    }
+  } else {
+    // Check if all revealed
+    if (revealedAnswers.every(r => r)) {
+      setTimeout(endRound, 800);
+    }
+  }
+}
+
+function normalise(str) {
+  return str.toLowerCase()
+    .replace(/[\/\(\)]/g, ' ')
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function fuzzyMatch(guess, answer) {
+  if (guess === answer) return true;
+  if (answer.includes(guess) && guess.length >= 3) return true;
+  if (guess.includes(answer) && answer.length >= 3) return true;
+  // Word overlap
+  const gWords = guess.split(' ').filter(w => w.length > 2);
+  const aWords = answer.split(' ').filter(w => w.length > 2);
+  const overlap = gWords.filter(w => aWords.some(aw => aw.includes(w) || w.includes(aw)));
+  if (overlap.length >= 1 && gWords.length <= 3) return true;
+  return false;
+}
+
+function revealCell(index) {
+  const cell = document.getElementById('cell-'+index);
+  cell.classList.add('revealed');
+}
+
+function updateAnswersLeft() {
+  const left = revealedAnswers.filter(r => !r).length;
+  document.getElementById('answers-left').textContent = left;
+}
+
+function skipRound() { endRound(); }
+
+function endRound() {
+  // Award points
+  playerScores[currentPlayerIndex] += roundScore;
+
+  // Show all answers
+  const round = ROUNDS[currentRoundIndex];
+  revealedAnswers.forEach((r, i) => {
+    if (!r) {
+      revealCell(i); // show unrevealed too
+    }
+  });
+
+  // Build result screen
+  const foundCount = revealedAnswers.filter(r=>r).length;
+  document.getElementById('rr-found-text').textContent =
+    `${players[currentPlayerIndex]} found ${foundCount} of ${round.answers.length} answers!`;
+  document.getElementById('rr-points').textContent = `+${roundScore}`;
+
+  const rrBoard = document.getElementById('rr-board');
+  rrBoard.innerHTML = '';
+  round.answers.forEach((ans, i) => {
+    const found = revealedAnswers[i];
+    rrBoard.innerHTML += `
+      <div class="rr-answer-row" style="${found ? 'border-color:rgba(0,255,100,0.4);' : ''}">
+        <span>${found ? '✅' : '❌'} ${ans.text}</span>
+        <span class="rr-pts">${ans.points}</span>
+      </div>`;
+  });
+
+  setTimeout(() => showScreen('round-result-screen'), 600);
+}
+
+function nextRound() {
+  // Advance player
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  currentRoundIndex++;
+
+  // Show leaderboard between rounds (except last)
+  if (currentRoundIndex < ROUNDS.length) {
+    renderLeaderboard('lb-table');
+    showScreen('leaderboard-screen');
+  } else {
+    showFinalScreen();
+  }
+}
+
+function continueToGame() {
+  showScreen('game-screen');
+  loadRound();
+}
+
+// ============================================================
+// LEADERBOARD
+// ============================================================
+function renderLeaderboard(tableId) {
+  const sorted = players
+    .map((name, i) => ({ name, score: playerScores[i] }))
+    .sort((a, b) => b.score - a.score);
+
+  const ranks = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣'];
+  const table = document.getElementById(tableId);
+  table.innerHTML = `<tr><th>Rank</th><th>Player</th><th>Score</th></tr>`;
+  sorted.forEach((p, i) => {
+    table.innerHTML += `
+      <tr>
+        <td><span class="rank-icon">${ranks[i] || (i+1)}</span></td>
+        <td>${p.name}</td>
+        <td>${p.score}</td>
+      </tr>`;
+  });
+}
+
+function showFinalScreen() {
+  renderLeaderboard('final-lb-table');
+  const sorted = players
+    .map((name, i) => ({ name, score: playerScores[i] }))
+    .sort((a, b) => b.score - a.score);
+
+  document.getElementById('final-winner-name').textContent = sorted[0].name;
+  document.getElementById('final-winner-score').textContent = `${sorted[0].score} Points`;
+
+  launchConfetti();
+  showScreen('final-screen');
+}
+
+// ============================================================
+// FEEDBACK
+// ============================================================
+let feedbackTimer = null;
+function showFeedback(correct, text) {
+  const overlay = document.getElementById('feedback-overlay');
+  const ftxt = document.getElementById('feedback-text');
+  ftxt.textContent = text;
+  ftxt.className = 'feedback-text ' + (correct ? 'correct' : 'wrong');
+  overlay.classList.add('show');
+  if (feedbackTimer) clearTimeout(feedbackTimer);
+  feedbackTimer = setTimeout(() => overlay.classList.remove('show'), 800);
+}
+
+// ============================================================
+// CONFETTI
+// ============================================================
+function launchConfetti() {
+  const colors = ['#FFD700','#ff4422','#00aaff','#00ff66','#ff88cc','#ffffff','#ff9900'];
+  for (let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.width = (Math.random() * 10 + 6) + 'px';
+      c.style.height = (Math.random() * 10 + 6) + 'px';
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      c.style.animationDelay = '0s';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4000);
+    }, i * 40);
+  }
+}
+
+// ============================================================
+// SCREEN MANAGEMENT
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function restartGame() {
+  ROUNDS = buildRoundOrder();
+  currentRoundIndex = 0;
+  currentPlayerIndex = 0;
+  playerScores = new Array(players.length).fill(0);
+  showScreen('game-screen');
+  loadRound();
+}
+
+// ============================================================
+// INIT — Add default 2 players
+// ============================================================
+window.onload = () => {
+  addPlayer();
+  addPlayer();
+};
+</script>
+</body>
+</html>
